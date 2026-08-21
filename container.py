@@ -15,8 +15,7 @@ class TypedContainer(Generic[T]):
     """A strictly-typed key-value container. Keys must always be str."""
 
     def __init__(self) -> None:
-        # TODO: set up your internal storage (e.g. a dict).
-        raise NotImplementedError
+        self._dictionary: dict[str, T] = {}
 
     def set(self, key: str, value: T) -> None:
         """
@@ -25,8 +24,10 @@ class TypedContainer(Generic[T]):
         Must raise TypeError immediately if `key` is not a str --
         no silent coercion. See Part A, Question 3, for why.
         """
-        # TODO
-        raise NotImplementedError
+        if not isinstance(key, str):
+            raise TypeError("Key must be a string.")
+        self._dictionary[key] = value
+            
 
     def get(self, key: str) -> T:
         """
@@ -34,13 +35,12 @@ class TypedContainer(Generic[T]):
 
         Must raise TypeError immediately if `key` is not a str.
         """
-        # TODO
-        raise NotImplementedError
+        if not isinstance(key, str):
+            raise TypeError("Key must be a string.")
+        return self._dictionary[key]
 
     def __contains__(self, key: str) -> bool:
-        # TODO: support the `in` operator.
-        raise NotImplementedError
+        return key in self._dictionary
 
     def __len__(self) -> int:
-        # TODO: support len(container).
-        raise NotImplementedError
+        return len(self._dictionary)
